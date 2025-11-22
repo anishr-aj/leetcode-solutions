@@ -1,0 +1,28 @@
+class Solution {
+    /**
+     * Determines which kids can have the greatest number of candies after receiving extra candies.
+     * 
+     * @param candies Array where candies[i] represents the number of candies the i-th kid has
+     * @param extraCandies The number of extra candies that can be given to each kid
+     * @return List of boolean values where result[i] is true if kid i can have the greatest
+     *         number of candies among all kids after receiving the extra candies
+     */
+    public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
+        // Find the maximum number of candies among all kids
+        int maxCandies = 0;
+        for (int currentCandies : candies) {
+            maxCandies = Math.max(maxCandies, currentCandies);
+        }
+      
+        // Create result list to store whether each kid can have the greatest amount
+        List<Boolean> result = new ArrayList<>();
+      
+        // Check each kid: if their candies plus extra candies >= max, they can have the greatest
+        for (int currentCandies : candies) {
+            boolean canHaveGreatest = (currentCandies + extraCandies) >= maxCandies;
+            result.add(canHaveGreatest);
+        }
+      
+        return result;
+    }
+}

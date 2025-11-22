@@ -1,0 +1,46 @@
+class Solution {
+    public String reverseVowels(String s) {
+        // Create a boolean array to mark vowels (using ASCII values as indices)
+        // Size 128 covers all standard ASCII characters
+        boolean[] isVowel = new boolean[128];
+      
+        // Mark all vowels (both lowercase and uppercase) as true in the array
+        for (char vowel : "aeiouAEIOU".toCharArray()) {
+            isVowel[vowel] = true;
+        }
+      
+        // Convert string to character array for in-place modification
+        char[] characters = s.toCharArray();
+      
+        // Initialize two pointers: left starts at beginning, right starts at end
+        int left = 0;
+        int right = characters.length - 1;
+      
+        // Continue until the two pointers meet
+        while (left < right) {
+            // Move left pointer forward until a vowel is found
+            while (left < right && !isVowel[characters[left]]) {
+                left++;
+            }
+          
+            // Move right pointer backward until a vowel is found
+            while (left < right && !isVowel[characters[right]]) {
+                right--;
+            }
+          
+            // If pointers haven't crossed, swap the vowels
+            if (left < right) {
+                char temp = characters[left];
+                characters[left] = characters[right];
+                characters[right] = temp;
+              
+                // Move both pointers inward for next iteration
+                left++;
+                right--;
+            }
+        }
+      
+        // Convert character array back to string and return
+        return String.valueOf(characters);
+    }
+}

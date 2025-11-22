@@ -1,0 +1,33 @@
+class Solution {
+    /**
+     * Determines if n new flowers can be planted in the flowerbed without violating the no-adjacent-flowers rule.
+     * Flowers cannot be planted in adjacent plots.
+     * 
+     * @param flowerbed Array representing the flowerbed where 0 = empty, 1 = planted
+     * @param n Number of new flowers to plant
+     * @return true if all n flowers can be planted, false otherwise
+     */
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+        int length = flowerbed.length;
+      
+        // Iterate through each position in the flowerbed
+        for (int i = 0; i < length; ++i) {
+            // Check left neighbor (treat out-of-bounds as empty)
+            int leftNeighbor = (i == 0) ? 0 : flowerbed[i - 1];
+          
+            // Check right neighbor (treat out-of-bounds as empty)
+            int rightNeighbor = (i == length - 1) ? 0 : flowerbed[i + 1];
+          
+            // If current position and both neighbors are empty, plant a flower
+            if (leftNeighbor + flowerbed[i] + rightNeighbor == 0) {
+                // Plant flower at current position
+                flowerbed[i] = 1;
+                // Decrease the count of flowers still needed to plant
+                --n;
+            }
+        }
+      
+        // Return true if all required flowers have been planted
+        return n <= 0;
+    }
+}
