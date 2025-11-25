@@ -1,0 +1,24 @@
+class Solution {
+    public int maxOperations(int[] nums, int k) {
+        Arrays.sort(nums);
+        int left = 0;
+        int right = nums.length - 1;
+        int operationCount = 0;
+
+        while (left < right) {
+            int currentSum = nums[left] + nums[right];
+
+            if (currentSum == k) {
+                operationCount++;
+                left++;
+                right--;
+            } else if (currentSum > k) {
+                right--;
+            } else {
+                left++;
+            }
+        }
+
+        return operationCount;
+    }
+}
