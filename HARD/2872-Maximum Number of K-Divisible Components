@@ -1,0 +1,42 @@
+class Solution {
+    private int componentCount;
+    private List<Integer>[] adjacencyList;
+    private int[] nodeValues;
+    private int divisor;
+
+    public int maxKDivisibleComponents(int n, int[][] edges, int[] values, int k) {
+        adjacencyList = new List[n];
+        Arrays.setAll(adjacencyList, index -> new ArrayList<>());
+
+        for (int[] edge : edges) {
+            int nodeA = edge[0];
+            int nodeB = edge[1];
+            adjacencyList[nodeA].add(nodeB);
+            adjacencyList[nodeB].add(nodeA);
+        }
+
+        this.nodeValues = values;
+        this.divisor = k;
+        this.componentCount = 0;
+
+        dfs(0, -1);
+
+        return componentCount;
+    }
+
+    private long dfs(int currentNode, int parentNode) {
+        long subtreeSum = nodeValues[currentNode];
+
+        for (int adjacentNode : adjacencyList[currentNode]) {
+            if (adjacentNode != parentNode) {
+                subtreeSum += dfs(adjacentNode, currentNode);
+            }
+        }
+
+        if (subtreeSum % divisor == 0) {
+            componentCount++;
+        }
+
+        return subtreeSum;
+    }
+}
