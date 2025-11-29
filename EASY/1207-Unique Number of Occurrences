@@ -1,0 +1,9 @@
+class Solution {
+    public boolean uniqueOccurrences(int[] arr) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        for (int element : arr) {
+            frequencyMap.merge(element, 1, Integer::sum);
+        }
+        return new HashSet<>(frequencyMap.values()).size() == frequencyMap.size();
+    }
+}
