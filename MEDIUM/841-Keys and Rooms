@@ -1,0 +1,25 @@
+class Solution {
+    private int visitedRoomCount;
+    private boolean[] visited;
+    private List<List<Integer>> roomGraph;
+
+    public boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        roomGraph = rooms;
+        visited = new boolean[roomGraph.size()];
+        dfs(0);
+        return visitedRoomCount == roomGraph.size();
+    }
+
+    private void dfs(int roomIndex) {
+        if (visited[roomIndex]) {
+            return;
+        }
+
+        visited[roomIndex] = true;
+        ++visitedRoomCount;
+
+        for (int nextRoom : roomGraph.get(roomIndex)) {
+            dfs(nextRoom);
+        }
+    }
+}
