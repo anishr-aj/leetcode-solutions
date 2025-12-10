@@ -1,0 +1,63 @@
+class Solution {
+    private Map<String, String> parent;
+    private Map<String, Double> weight;
+
+    public double[] calcEquation(
+        List<List<String>> equations, double[] values, List<List<String>> queries) {
+
+        int numEquations = equations.size();
+        parent = new HashMap<>();
+        weight = new HashMap<>();
+
+        for (List<String> equation : equations) {
+            String numerator = equation.get(0);
+            String denominator = equation.get(1);
+            parent.put(numerator, numerator);
+            parent.put(denominator, denominator);
+            weight.put(numerator, 1.0);
+            weight.put(denominator, 1.0);
+        }
+
+        for (int i = 0; i < numEquations; ++i) {
+            List<String> equation = equations.get(i);
+            String numerator = equation.get(0);
+            String denominator = equation.get((1));
+            String rootNumerator = find(numerator);
+            String rootDenominator = find(denominator);
+
+            if (Objects.equals(rootNumerator, rootDenominator)) {
+                continue;
+            }
+
+            parent.put(rootNumerator, rootDenominator);
+            weight.put(rootNumerator, weight.get(denominator) * values[i] / weight.get(numerator));
+        }
+
+        int numQueries = queries.size();
+        double[] results = new double[numQueries];
+
+        for (int i = 0; i < numQueries; ++i) {
+            String dividend = queries.get(i).get(0);
+            String divisor = queries.get(i).get(1);
+
+            if (!parent.containsKey(dividend) ||
+                !parent.containsKey(divisor) ||
+                !Objects.equals(find(dividend), find(divisor))) {
+                results[i] = -1.0;
+            } else {
+                results[i] = weight.get(dividend) / weight.get(divisor);
+            }
+        }
+
+        return results;
+    }
+
+    private String find(String x) {
+        if (!Objects.equals(parent.get(x), x)) {
+            String originalParent = parent.get(x);
+            parent.put(x, find(parent.get(x)));
+            weight.put(x, weight.get(x) * weight.get(originalParent));
+        }
+        return parent.get(x);
+    }
+}
