@@ -1,0 +1,41 @@
+class Solution {
+    private int corridorLength;
+    private char[] corridorArray;
+    private Integer[][] memoization;
+    private final int MOD = (int) 1e9 + 7;
+
+    public int numberOfWays(String corridor) {
+        corridorArray = corridor.toCharArray();
+        corridorLength = corridorArray.length;
+        memoization = new Integer[corridorLength][3];
+        return dfs(0, 0);
+    }
+
+    private int dfs(int currentPosition, int seatsInSection) {
+        if (currentPosition >= corridorLength) {
+            return seatsInSection == 2 ? 1 : 0;
+        }
+
+        if (memoization[currentPosition][seatsInSection] != null) {
+            return memoization[currentPosition][seatsInSection];
+        }
+
+        int updatedSeatCount = seatsInSection;
+        if (corridorArray[currentPosition] == 'S') {
+            updatedSeatCount++;
+        }
+
+        if (updatedSeatCount > 2) {
+            return 0;
+        }
+
+        int totalWays = dfs(currentPosition + 1, updatedSeatCount);
+
+        if (updatedSeatCount == 2) {
+            totalWays = (totalWays + dfs(currentPosition + 1, 0)) % MOD;
+        }
+
+        memoization[currentPosition][seatsInSection] = totalWays;
+        return totalWays;
+    }
+}

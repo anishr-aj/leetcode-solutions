@@ -1,0 +1,29 @@
+class Solution {
+    public int[] successfulPairs(int[] spells, int[] potions, long success) {
+        Arrays.sort(potions);
+
+        int spellsLength = spells.length;
+        int potionsLength = potions.length;
+
+        int[] result = new int[spellsLength];
+
+        for (int i = 0; i < spellsLength; i++) {
+            int left = 0;
+            int right = potionsLength;
+
+            while (left < right) {
+                int mid = (left + right) >> 1;
+
+                if ((long) spells[i] * potions[mid] >= success) {
+                    right = mid;
+                } else {
+                    left = mid + 1;
+                }
+            }
+
+            result[i] = potionsLength - left;
+        }
+
+        return result;
+    }
+}
