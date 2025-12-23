@@ -8,7 +8,7 @@ LeetCode Solutions
 - Clean and easy-to-understand code   
 - Multiple approaches where applicable 
 - Consistent daily practice 
-- Well-structured folder system
+- Well-structured folder system 
 
 🧠 Goals
 - Strengthen DSA fundamentals
@@ -19,4 +19,5 @@ LeetCode Solutions
 - If this repo helps you, drop a ⭐ — it motivates me to stay consistent!
 
 More improvements coming soon… 🚀
+ 
  
