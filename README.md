@@ -13,7 +13,7 @@ LeetCode Solutions
 🧠 Goals
 - Strengthen DSA fundamentals
 - Build consistency by solving daily problems
-- Prepare for coding interviews
+- Prepare for coding interviews 
 
 ⭐ Support
 - If this repo helps you, drop a ⭐ — it motivates me to stay consistent!
