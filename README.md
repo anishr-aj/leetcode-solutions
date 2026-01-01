@@ -5,7 +5,7 @@ LeetCode Solutions
 - This repository contains solutions to various LeetCode problems, organized by problem number and topic. Each solution reflects my daily progress in improving Data Structures & Algorithms skills.
 
 🚀 Features
-- Clean and easy-to-understand code   
+- Clean and easy-to-understand code 
 - Multiple approaches where applicable  
 - Consistent daily practice 
 - Well-structured folder system 
